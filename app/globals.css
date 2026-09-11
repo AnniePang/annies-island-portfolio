@@ -1,0 +1,364 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ==========================================================================
+   ACNH-INSPIRED THEME  --  all values authored for this project.
+   No Nintendo assets, fonts, or files are used. See ASSETS-LICENSE.md.
+
+   The original portfolio styles every surface with Tailwind's `slate` scale
+   (~550 usages). Rather than rewrite 1,851 lines of page markup, we remap the
+   `slate` ramp itself to a warm island palette -- sand and driftwood in place of
+   cool grey -- so the entire site reskins with zero content churn.
+   ========================================================================== */
+
+@theme {
+  /* --- Remapped neutral ramp: sand -> driftwood -> night soil --------------
+     Light mode reads as sun-bleached sand and wood; the same tokens double as
+     the "night island" surfaces in dark mode. */
+  --color-slate-50: #fdf8e7;
+  --color-slate-100: #f6edcf;
+  --color-slate-200: #e9dbaf;
+  --color-slate-300: #cfbb87;
+  --color-slate-400: #7a6739;
+  --color-slate-500: #6b5a33;
+  --color-slate-600: #5c4d2c;
+  --color-slate-700: #493c21;
+  --color-slate-800: #3f3419;
+  --color-slate-900: #2d2612;
+  --color-slate-950: #1d180b;
+
+  /* --- Island accents ---------------------------------------------------- */
+  --color-leaf-100: #e6f7dc;
+  --color-leaf-300: #a8e08a;
+  --color-leaf-500: #6cc24a;
+  --color-leaf-600: #57a83a;
+  --color-leaf-700: #35701f;
+
+  --color-sea-100: #dcf5fb;
+  --color-sea-300: #9fe3f2;
+  --color-sea-500: #4fc3e8;
+  --color-sea-600: #2fa5cd;
+
+  --color-bell-300: #fbe9a0;
+  --color-bell-500: #f7d74a;
+  --color-bell-600: #e0ba25;
+
+  --color-coral-400: #f79c86;
+  --color-coral-500: #f2836b;
+
+  --color-wood-300: #e0c298;
+  --color-wood-500: #c89b65;
+  --color-wood-700: #966c3f;
+
+  --color-cream: #fffcf0;
+
+  /* --- Type: SIL OFL 1.1 faces wired up in app/layout.tsx ---------------- */
+  --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-baloo), var(--font-nunito), ui-rounded, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, monospace;
+
+  /* --- Pillowy ACNH geometry -------------------------------------------- */
+  --radius-sm: 0.75rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+  --radius-2xl: 2.5rem;
+  --radius-3xl: 3rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+}
+
+/* ---------- Semantic tokens: island day ---------- */
+:root {
+  --radius: 1.25rem;
+
+  --background: #fffcf0;
+  --foreground: #4a3d22;
+
+  --card: #fffdf6;
+  --card-foreground: #4a3d22;
+  --popover: #fffdf6;
+  --popover-foreground: #4a3d22;
+
+  --primary: #6cc24a;
+  --primary-foreground: #21400f;
+  --secondary: #f6edcf;
+  --secondary-foreground: #55472a;
+  --muted: #f6edcf;
+  --muted-foreground: #8a7748;
+  --accent: #dcf5fb;
+  --accent-foreground: #1d5a70;
+  --destructive: #e2604a;
+
+  --border: #e5d3a8;
+  --input: #e5d3a8;
+  --ring: #6cc24a;
+
+  --chart-1: #6cc24a;
+  --chart-2: #4fc3e8;
+  --chart-3: #f7d74a;
+  --chart-4: #f2836b;
+  --chart-5: #c89b65;
+
+  --sidebar: #fdf8e7;
+  --sidebar-foreground: #4a3d22;
+  --sidebar-primary: #6cc24a;
+  --sidebar-primary-foreground: #21400f;
+  --sidebar-accent: #f6edcf;
+  --sidebar-accent-foreground: #55472a;
+  --sidebar-border: #e5d3a8;
+  --sidebar-ring: #6cc24a;
+
+  /* Decorative surfaces */
+  --acnh-grass-a: #7cc95a;
+  --acnh-grass-b: #6cbb4c;
+  --acnh-sky-a: #a9e7f2;
+  --acnh-sky-b: #d9f4ee;
+  --acnh-sand: #f6e6bd;
+  --acnh-panel: #fffdf6;
+  --acnh-panel-edge: #e5d3a8;
+  --acnh-stitch: #cbb98a;
+}
+
+/* ---------- Semantic tokens: night island ---------- */
+.dark {
+  /* The mid-ramp muted tones cannot clear WCAG AA against BOTH the light sand
+     and the dark soil backgrounds, so they are re-pointed lighter here. The
+     Tailwind utilities read these vars, so `text-slate-400` resolves per mode. */
+  --color-slate-400: #b09c69;
+  --color-slate-500: #c2ad7a;
+
+  --background: #1d180b;
+  --foreground: #f6edcf;
+
+  --card: #2d2612;
+  --card-foreground: #f6edcf;
+  --popover: #2d2612;
+  --popover-foreground: #f6edcf;
+
+  --primary: #8bd46a;
+  --primary-foreground: #17300a;
+  --secondary: #3f3419;
+  --secondary-foreground: #f6edcf;
+  --muted: #3f3419;
+  --muted-foreground: #c2ac7c;
+  --accent: #274b57;
+  --accent-foreground: #cdeef7;
+  --destructive: #ef7a63;
+
+  --border: #554728;
+  --input: #554728;
+  --ring: #8bd46a;
+
+  --chart-1: #8bd46a;
+  --chart-2: #6fd0ef;
+  --chart-3: #f7d74a;
+  --chart-4: #f79c86;
+  --chart-5: #e0c298;
+
+  --sidebar: #2d2612;
+  --sidebar-foreground: #f6edcf;
+  --sidebar-primary: #8bd46a;
+  --sidebar-primary-foreground: #17300a;
+  --sidebar-accent: #3f3419;
+  --sidebar-accent-foreground: #f6edcf;
+  --sidebar-border: #554728;
+  --sidebar-ring: #8bd46a;
+
+  --acnh-grass-a: #2f5a2a;
+  --acnh-grass-b: #274d24;
+  --acnh-sky-a: #14324a;
+  --acnh-sky-b: #1b2a3d;
+  --acnh-sand: #4a3f24;
+  --acnh-panel: #2d2612;
+  --acnh-panel-edge: #554728;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    /* Soft dappled-light grain on the page base -- pure CSS, no image asset. */
+    background-image:
+      radial-gradient(circle at 12% 18%, rgb(255 255 255 / 0.55) 0 22%, transparent 23%),
+      radial-gradient(circle at 78% 62%, rgb(255 255 255 / 0.4) 0 18%, transparent 19%);
+    background-size: 340px 340px, 260px 260px;
+    background-attachment: fixed;
+  }
+
+  .dark body {
+    background-image:
+      radial-gradient(circle at 12% 18%, rgb(255 255 255 / 0.05) 0 22%, transparent 23%),
+      radial-gradient(circle at 78% 62%, rgb(255 255 255 / 0.035) 0 18%, transparent 19%);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+}
+
+/* ==========================================================================
+   ACNH motif utilities -- all hand-authored, no third-party art.
+   ========================================================================== */
+@layer components {
+  /* Nook-style dialogue panel: fat soft edge + inner dashed stitch. */
+  .acnh-panel {
+    position: relative;
+    background: var(--acnh-panel);
+    border: 2px solid var(--acnh-panel-edge);
+    border-radius: var(--radius-xl);
+    box-shadow:
+      0 2px 0 0 rgb(0 0 0 / 0.04),
+      0 10px 24px -12px rgb(90 70 30 / 0.35);
+  }
+
+  .acnh-panel::after {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border: 2px dashed color-mix(in srgb, var(--acnh-panel-edge) 70%, transparent);
+    border-radius: calc(var(--radius-xl) - 6px);
+    pointer-events: none;
+  }
+
+  /* Chunky pill button with the pressed-down bottom edge the game UI uses. */
+  .acnh-btn {
+    position: relative;
+    border-radius: 9999px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    box-shadow: 0 4px 0 0 var(--acnh-btn-shadow, rgb(0 0 0 / 0.18));
+    transition: transform 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+  }
+
+  .acnh-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 0 var(--acnh-btn-shadow, rgb(0 0 0 / 0.18));
+  }
+
+  .acnh-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 0 var(--acnh-btn-shadow, rgb(0 0 0 / 0.18));
+  }
+
+  .acnh-btn-leaf {
+    background-color: var(--color-leaf-500);
+    color: #1f3d0d;
+    --acnh-btn-shadow: var(--color-leaf-700);
+  }
+
+  .acnh-btn-leaf:hover {
+    background-color: var(--color-leaf-300);
+  }
+
+  .acnh-btn-sea {
+    background-color: var(--color-sea-500);
+    color: #0d3b4a;
+    --acnh-btn-shadow: var(--color-sea-600);
+  }
+
+  /* Wooden signpost plaque behind each section heading. */
+  .acnh-signpost {
+    position: relative;
+    display: inline-block;
+    padding: 0.55rem 1.5rem;
+    border-radius: 9999px;
+    background: linear-gradient(180deg, var(--color-wood-300), var(--color-wood-500));
+    color: #45301a;
+    border: 2px solid var(--color-wood-700);
+    box-shadow: 0 3px 0 0 var(--color-wood-700);
+  }
+
+  .dark .acnh-signpost {
+    background: linear-gradient(180deg, #7b5a34, #5f4526);
+    color: #f6e7cf;
+    border-color: #3d2b17;
+    box-shadow: 0 3px 0 0 #3d2b17;
+  }
+
+  /* Rounded leaf-pill tag used for badges and skill chips. */
+  .acnh-tag {
+    border-radius: 9999px;
+    background: var(--color-leaf-100);
+    color: var(--color-leaf-700);
+    border: 1.5px solid var(--color-leaf-300);
+    font-weight: 600;
+  }
+
+  .dark .acnh-tag {
+    background: color-mix(in srgb, var(--color-leaf-700) 30%, transparent);
+    color: var(--color-leaf-300);
+    border-color: var(--color-leaf-700);
+  }
+
+  /* Grass strip: repeating tufts drawn with gradients. */
+  .acnh-grass {
+    background:
+      radial-gradient(circle at 50% 120%, var(--acnh-grass-a) 0 40%, transparent 41%) 0 0 / 26px 18px repeat-x,
+      linear-gradient(180deg, var(--acnh-grass-a), var(--acnh-grass-b));
+  }
+
+  /* Island sky wash for the hero. */
+  .acnh-sky {
+    background: linear-gradient(180deg, var(--acnh-sky-a) 0%, var(--acnh-sky-b) 62%, var(--acnh-sand) 100%);
+  }
+}
+
+@layer utilities {
+  /* Retro-soft focus ring in leaf green rather than the stock slate ring. */
+  .acnh-focus:focus-visible {
+    outline: 3px solid var(--color-leaf-500);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .acnh-btn,
+    .acnh-btn:hover,
+    .acnh-btn:active {
+      transform: none;
+      transition: none;
+    }
+  }
+}
